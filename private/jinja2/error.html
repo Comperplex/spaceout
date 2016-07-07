@@ -1,4 +1,47 @@
-<div class="row">
-		<h2>{{ code }}</h2>
-		<p class="flow-text">{{ message }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>error | spaceout &#x1F680;</title>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i';
+
+body {
+	background-color: #eee;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+}
+
+#message {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fff;
+	padding: 40px;
+	width: 500px;
+	min-height: 200px;
+	margin: 40px auto;
+	text-align: left;
+}
+
+#message h1 {
+	margin: 0px;
+	text-align: center;
+}
+	</style>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="apple-mobile-web-app-title" content="spaceout">
+	<meta name="application-name" content="spaceout">
+	<meta name="theme-color" content="#000000">
+</head>
+<body>
+
+<div id="message">
+	<h1>{% if code == 200 %}<i class="material-icons">&#xE88F;</i>{% else %}{{ code }} error{% endif %}</h1>
+	<p>{{ message }}</p>
 </div>
+
+</body>
+</html>

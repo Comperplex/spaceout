@@ -3,6 +3,9 @@
 
 // Base
 
-html {
+body {
 	font-family: 'Roboto', sans-serif;
+	background: #000 url('/static/img/background.png');
+	color: #999;
+	overflow: hidden;
 }

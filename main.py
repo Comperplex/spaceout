@@ -2,6 +2,10 @@ import cherrypy
 import jinja2
 import os
 import re
+import json
+
+from Game.GameMap import GameMap
+from Game.GameObject import GameObject
 
 os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
@@ -23,6 +27,13 @@ class Main(object):
 	def api(self, *args, **kwargs):
 		if len(args) == 0:
 			return error(404)
+		elif args[0] == 'getMap':
+			gameMap = GameMap(100)
+			gameMap.addObject(GameObject([20,30], 'drone', 'owen'))
+			flatGameMap = []
+			for i in gameMap.gameObjects:
+				flatGameMap.append(i.__dict__)
+			return json.dumps(flatGameMap)
 		else:
 			return error(message="API method does not exist")
 
@@ -42,8 +53,7 @@ if __name__ == '__main__':
 	}
 	cherrypy.config.update({
 		'server.socket_host': '0.0.0.0',
-		'server.socket_port': 8080,
-		'request.error_response': error,
+		'server.socket_port': 8080
 	})
 
 	cherrypy.quickstart(Main(), '/', conf)

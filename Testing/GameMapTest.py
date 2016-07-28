@@ -12,7 +12,7 @@ from GameMap import GameMap
 class TestGameMap(unittest.TestCase):
 
 	def testAddObject(self):
-		gameMap = GameMap(100)
+		gameMap = GameMap(2)
 
 		#Testing a valid Game Object
 		validGameObject = GameObject([0,0], 'drone', 'owen')
@@ -24,7 +24,9 @@ class TestGameMap(unittest.TestCase):
 
 		dupeGameObject = GameObject([0,0], 'beacon', 'owen')
 		self.assertTrue(gameMap.addObject(dupeGameObject))
-		self.assertEqual(len(gameMap.gameObjects['owen']), 2)
+		self.assertEqual(gameMap.getNumEntities(), 2)
+		#self.assertFalse(gameMap.addObject(dupeGameObject))
+		self.assertFalse(gameMap.addObject(dupeGameObject))
 
 if __name__ == '__main__':
 	unittest.main()

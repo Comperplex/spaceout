@@ -24,9 +24,23 @@ class TestGameMap(unittest.TestCase):
 
 		dupeGameObject = GameObject([0,0], 'beacon', 'owen')
 		self.assertTrue(gameMap.addObject(dupeGameObject))
-		#self.assertEqual(gameMap.getNumEntities(), 2)
-		#self.assertFalse(gameMap.addObject(dupeGameObject))
+		self.assertEqual(len(gameMap.playerSortedObjectDict['owen']), 2)
 		self.assertFalse(gameMap.addObject(dupeGameObject))
+
+	def testRemoveObject(self):
+		gameMap = GameMap(100)
+		listElement1 = GameObject([0,0], 'miner1', 'sammy')
+		listElement2 = GameObject([0,0], 'drone1', 'THE MAJESTIC ERIC')
+		listElement3 = GameObject([50, 50], 'energy bridge1', 'owen')
+
+		gameMap.addObject(listElement1)
+		gameMap.addObject(listElement2)
+		gameMap.addObject(listElement3)
+
+		self.assertTrue(gameMap.removeObject('sammy', 'miner1'))
+		self.assertFalse(gameMap.removeObject('THE MAJESTIC ERIC', 'drone2'))
+
+		self.assertEqual(len(gameMap.gameObjects), 2)
 
 if __name__ == '__main__':
 	unittest.main()

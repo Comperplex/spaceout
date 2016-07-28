@@ -1,5 +1,5 @@
 import GameObject
-import Movement #placeholder import for movement
+import Movement
 
 class GameMap:
 	size = [500, 500]
@@ -44,3 +44,8 @@ class GameMap:
 		if (gameObject.player.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement
+
+	def update(self):
+		for gameObject in self.gameObjects:
+			gameObject.update()
+			Movement.vectorMovementWithoutCollision(self, gameObject)

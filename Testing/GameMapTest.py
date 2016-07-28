@@ -29,16 +29,16 @@ class TestGameMap(unittest.TestCase):
 
 	def testRemoveObject(self):
 		gameMap = GameMap(100)
-		listElement1 = GameObject([0,0], 'miner1', 'sammy')
-		listElement2 = GameObject([0,0], 'drone1', 'THE MAJESTIC ERIC')
-		listElement3 = GameObject([50, 50], 'energy bridge1', 'owen')
+		listElement1 = GameObject([0,0], 'miner', 'sammy')
+		listElement2 = GameObject([0,0], 'drone', 'THE MAJESTIC ERIC')
+		listElement3 = GameObject([50, 50], 'energy bridge', 'owen')
 
 		gameMap.addObject(listElement1)
 		gameMap.addObject(listElement2)
 		gameMap.addObject(listElement3)
 
 		self.assertTrue(gameMap.removeObject('sammy', 'miner1'))
-		self.assertFalse(gameMap.removeObject('THE MAJESTIC ERIC', 'drone2'))
+		self.assertFalse(gameMap.removeObject('THE MAJESTIC ERIC', 'drone42'))
 
 		self.assertEqual(len(gameMap.gameObjects), 2)
 

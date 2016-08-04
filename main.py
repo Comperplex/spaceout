@@ -8,13 +8,14 @@ import os, sys
 
 currDir = os.path.dirname(os.path.realpath(__file__))
 rootDir = os.path.abspath(os.path.join(currDir, '.'))
-gameDir = rootDir + "\\Game"
+gameDir = os.path.join(rootDir, "Game")
 sys.path.append(gameDir)
 
-from Game import GameMap
-from Game import GameObject
+from Game.GameMap import GameMap
+from Game.GameObject import GameObject
+from Game import MainGameLoop
 
-#os.system("compass watch &") # This is only for testing purposes. Remove on production
+os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):
@@ -35,10 +36,11 @@ class Main(object):
 		if len(args) == 0:
 			return error(404)
 		elif args[0] == 'getMap':
-			gameMap = GameMap(100)
-			gameMap.addObject(GameObject([20,30], 'drone', 'owen'))
+			myObject = GameObject([0,0], 'drone', 'owen')
+			myObject.velocity = [1, 0]
+			MainGameLoop.gameMap.addObject(myObject)
 			flatGameMap = []
-			for i in gameMap.gameObjects:
+			for i in MainGameLoop.gameMap.gameObjects:
 				flatGameMap.append(i.__dict__)
 			return json.dumps(flatGameMap)
 		else:

@@ -1,6 +1,6 @@
-class GameObject:
+class GameObject(object):
 
-	validObjects = ['drone', 'beacon', 'tower', 'default', 'asteroid', 'fighter'] #Definition list of all possible object type strings
+	validObjects = ['beacon', 'tower', 'default', 'asteroid', 'fighter', 'defender', 'worker', 'mine', 'scrap'] #Definition list of all possible object type strings
 
 	def __init__(self, loc, objectType, player):
 		#Static attributes:
@@ -28,3 +28,7 @@ class GameObject:
 
 	def getUniqueID(self):
 		return self.player + ' ' + self.objectType + ' ' +  str(self.ID)
+
+class Beacon(object):
+
+    def __init__(self, loc, objectType, player):

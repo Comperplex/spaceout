@@ -12,13 +12,14 @@ class GameMap:
 	def addObject(self, gameObject): #Tries to add a new game Object to the dictionary of game objects. Returns true if successful and false otherwise
 		if gameObject.loc[0] in range(self.size[0]) and gameObject.loc[1] in range(self.size[1]) and len(self.gameObjects) < self.maxEntities:
 			if gameObject.player in self.playerSortedObjectDict:
-				self.playerSortedObjectDict[gameObject.player].append(gameObject)
+				self.playerSortedObjectDict[gameObject.player][0].append(gameObject)
+				self.playerSortedObjectDict[gameObject.player][1] += 1
 				#If the object dict contains objects from this player already, add this new object to the list
 			else:
-				self.playerSortedObjectDict[gameObject.player] = [gameObject]
+				self.playerSortedObjectDict[gameObject.player] = ([gameObject], 0)
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 			self.gameObjects.append(gameObject)
-			gameObject.ID = gameObject.player + gameObject.objectType + str(len(self.playerSortedObjectDict[gameObject.player]))
+			gameObject.ID = gameObject.player + gameObject.objectType + self.playerSortedObjectDict[gameObject.player][1]
 			return True
 		else:
 			return False
@@ -26,11 +27,10 @@ class GameMap:
 	def removeObject(self, player, ID): #only removes the object from the actual gameObject list
 		for gameObject in self.playerSortedObjectDict[player]:
 			if gameObject.ID == ID:
-				self.playerSortedObjectDict[player].remove(gameObject)
+				self.playerSortedObjectDict[player][0].remove(gameObject)
 				self.gameObjects.remove(gameObject)
 				return True
-			else:
-				return False
+		return False
 
 	def getSpecificGameObject(self, player, ID):
 		for gameObject in self.playerSortedObjectDict[player]:

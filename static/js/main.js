@@ -32,28 +32,34 @@ $(document).ready(function(){
 		}
 	}
 
-	$canvas = $('#gameCanvas');
-
-	$.get('/api/getMap', function(gameMapStr){
-		gameMap = JSON.parse(gameMapStr);
-		console.dir(gameMap);
-		gameMap.forEach(function(obj){
-			if (obj.objectType == 'drone'){
-				drone = shapes.drone;
-				drone.x = obj.loc[0];
-				drone.y = obj.loc[1];
-				$canvas.drawPath(drone);
-			} else if (obj.objectType == 'beacon'){
-				beacon = shapes.beacon;
-				beacon.x = obj.loc[0];
-				beacon.y = obj.loc[1];
-				$canvas.drawEllipse(shapes.beacon);
-			} else if (obj.objectType == 'asteroid'){
-				asteroid = shapes.asteroid;
-				asteroid.x = obj.loc[0];
-				asteroid.y = obj.loc[1];
-				$canvas.drawEllipse(shapes.asteroid);
-			}
+	function drawMap(){
+		$.get('/api/getMap', function(gameMapStr){
+			gameMap = JSON.parse(gameMapStr);
+			console.dir(gameMap);
+			gameMap.forEach(function(obj){
+				if (obj.objectType == 'drone'){
+					drone = shapes.drone;
+					drone.x = obj.loc[0];
+					drone.y = obj.loc[1];
+					$canvas.drawPath(drone);
+				} else if (obj.objectType == 'beacon'){
+					beacon = shapes.beacon;
+					beacon.x = obj.loc[0];
+					beacon.y = obj.loc[1];
+					$canvas.drawEllipse(shapes.beacon);
+				} else if (obj.objectType == 'asteroid'){
+					asteroid = shapes.asteroid;
+					asteroid.x = obj.loc[0];
+					asteroid.y = obj.loc[1];
+					$canvas.drawEllipse(shapes.asteroid);
+				}
+			});
 		});
-	});
+	};
+
+	$canvas = $('#gameCanvas');
+	drawMap();
+	$.get('/api/addObj');
+
+	
 });

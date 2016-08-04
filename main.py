@@ -1,10 +1,6 @@
-import cherrypy
-import jinja2
-import os
-import re
-import json
-
-import os, sys
+import cherrypy, jinja2
+import os, sys, re, json
+import threading
 
 currDir = os.path.dirname(os.path.realpath(__file__))
 rootDir = os.path.abspath(os.path.join(currDir, '.'))
@@ -15,7 +11,7 @@ from Game.GameMap import GameMap
 from Game.GameObject import GameObject
 from Game import MainGameLoop
 
-os.system("compass watch &") # This is only for testing purposes. Remove on production
+#os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):
@@ -36,13 +32,18 @@ class Main(object):
 		if len(args) == 0:
 			return error(404)
 		elif args[0] == 'getMap':
-			myObject = GameObject([0,0], 'drone', 'owen')
-			myObject.velocity = [1, 0]
-			MainGameLoop.gameMap.addObject(myObject)
 			flatGameMap = []
 			for i in MainGameLoop.gameMap.gameObjects:
 				flatGameMap.append(i.__dict__)
 			return json.dumps(flatGameMap)
+		elif args[0] == 'addObj':
+			#if ['loc','type','player'].issubset(kwargs):
+			myObject = GameObject([0,0], 'drone', 'owen')
+			myObject.velocity = [1, 0]
+			#myObject = GameObject(kwargs['loc'], kwargs['type'], kwargs['player'])
+			#myObject.velocity = [0,0]
+			MainGameLoop.gameMap.addObject(myObject)
+			return json.dumps(myObject.__dict__)
 		else:
 			return error(message="API method does not exist")
 
@@ -64,5 +65,13 @@ if __name__ == '__main__':
 		'server.socket_host': '0.0.0.0',
 		'server.socket_port': 8080
 	})
+
+	thr = threading.Thread(target=MainGameLoop.runGame)
+	thr.do_run = True
+	thr.start()
+
+	def stopit():
+		thr.do_run = False
+	cherrypy.engine.subscribe('stop', stopit)
 
 	cherrypy.quickstart(Main(), '/', conf)

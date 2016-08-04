@@ -1,4 +1,4 @@
-class GameObject(object):
+class GameObject():
 
 	validObjects = ['beacon', 'tower', 'default', 'asteroid', 'fighter', 'defender', 'worker', 'mine', 'scrap'] #Definition list of all possible object type strings
 
@@ -29,6 +29,22 @@ class GameObject(object):
 	def getUniqueID(self):
 		return self.player + ' ' + self.objectType + ' ' +  str(self.ID)
 
-class Beacon(object):
+class Beacon(GameObject):
+	def __init__(self, **kwargs):
+		GameObject.__init__(kwargs['loc'], 'beacon', kwargs['player'])
 
-    def __init__(self, loc, objectType, player):
+class Tower(GameObject):
+	def __init__(self, **kwargs):
+		GameObject.__init__(kwargs['loc'], 'tower', kwargs['player'])
+
+class Drone(GameObject):
+	def __init__(self, **kwargs):
+		GameObject.__init__(kwargs['loc'], 'drone' + kwargs['droneType'], kwargs['player'])
+
+class Worker(Drone):
+	def __init__(self, **kwargs):
+		Drone.__init__(kwargs['loc'], kwargs['player'], droneType='worker')
+
+class Fighter(Drone):
+	def __init__(self, **kwargs):
+		Drone.__init__(kwargs['loc'], kwargs['player'], droneType='fighter')

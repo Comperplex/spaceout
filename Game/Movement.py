@@ -11,3 +11,8 @@ def vectorMovementWithoutCollision(gameMap, gameObject): #Returns True if succes
 
 def vectorMovementWithCollision(gameMap, gameObject):
 	obstacles = gameMap.gameObjects
+
+class MovementRule:
+
+	def __init__(self):
+		pass

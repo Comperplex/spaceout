@@ -4,7 +4,7 @@ from GameMap import GameMap
 from GameObject import GameObject
 
 from functools import wraps
-def delay(delay=0.): # sets a timer to run a function later on
+def delay(delay=0.): # sets a timer to run a function later on - http://fredericiana.com/2014/11/14/settimeout-python-delay/
     def wrap(f):
         @wraps(f)
         def delayed(*args, **kwargs):

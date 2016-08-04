@@ -24,7 +24,7 @@ class GameMap:
 
 			IDNum = 0
 			IDNumList = []
-			for someGameObject in self.playerSortedObjectDict[player]:
+			for someGameObject in self.playerSortedObjectDict[gameObject.player]:
 				if gameObject.objectType == someGameObject.objectType:
 					IDNumList.append(someGameObject.ID)
 			#def makeID():
@@ -32,35 +32,33 @@ class GameMap:
 					#if i not in IDNumList:
 						#return i
 				#return max(IDNumList) + 1
-			def makeID():
+			def makeID(IDNum):
 				for i in IDNumList:
-					if IDNum = i:
+					if IDNum == i:
 						IDNum += 1
-						makeID()
+						makeID(IDNum)
 				return IDNum
 
-			gameObject.ID = makeID()
+			gameObject.ID = makeID(IDNum)
 			return True
 		else:
 			return False
 
-	def removeObject(self, player, ID): #only removes the object from the actual gameObject list
+	def removeObject(self, player, objectType, ID): #only removes the object from the actual gameObject list
+		gameObject = self.getSpecificGameObject(player, type, ID)
+		self.playerSortedObjectDict[player].remove(gameObject)
+		self.gameObjects.remove(gameObject)
+
+	def getSpecificGameObject(self, player, objectType, ID):
 		for gameObject in self.playerSortedObjectDict[player]:
-			if gameObject.ID == ID:
-				self.playerSortedObjectDict[player].remove(gameObject)
-				self.gameObjects.remove(gameObject)
-				return True
+			if gameObject.ID == ID and gameObject.objectType == objectType:
+				return gameObject
 		return False
 
-	def getSpecificGameObject(self, player, ID):
-		for gameObject in self.playerSortedObjectDict[player]:
-			if gameObject.ID is ID and gameObject in self.gameObjects:
-				return gameObject
-
-	def teleportObject(self, player, ID, xIncrement, yIncrement):
+	def teleportObject(self, player, objectType, ID, xIncrement, yIncrement):
 		#Moves the object without any collision whatsoever. Think of this as a "Teleport"
 		#Unlike moveWithCollision, this method moves an arbitary distance in both x and y
-		gameObject = self.getSpecificGameObject(player, ID)
+		gameObject = self.getSpecificGameObject(player, type, ID)
 		if (gameObject.player.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement

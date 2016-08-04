@@ -1,4 +1,3 @@
-import GameObject
 import Movement
 
 class GameMap:
@@ -45,20 +44,22 @@ class GameMap:
 			return False
 
 	def removeObject(self, player, objectType, ID): #only removes the object from the actual gameObject list
-		gameObject = self.getSpecificGameObject(player, type, ID)
-		self.playerSortedObjectDict[player].remove(gameObject)
-		self.gameObjects.remove(gameObject)
+		gameObject = self.getSpecificGameObject(player, objectType, ID)
+		if gameObject != None:
+			self.playerSortedObjectDict[player].remove(gameObject)
+			self.gameObjects.remove(gameObject)
+			return True
+		return False
 
 	def getSpecificGameObject(self, player, objectType, ID):
 		for gameObject in self.playerSortedObjectDict[player]:
 			if gameObject.ID == ID and gameObject.objectType == objectType:
 				return gameObject
-		return False
 
 	def teleportObject(self, player, objectType, ID, xIncrement, yIncrement):
 		#Moves the object without any collision whatsoever. Think of this as a "Teleport"
 		#Unlike moveWithCollision, this method moves an arbitary distance in both x and y
-		gameObject = self.getSpecificGameObject(player, type, ID)
+		gameObject = self.getSpecificGameObject(player, objectType, ID)
 		if (gameObject.player.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement

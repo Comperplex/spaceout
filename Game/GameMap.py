@@ -18,7 +18,7 @@ class GameMap:
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 			self.gameObjects.append(gameObject)
-			gameObject.ID = gameObject.objectType + str(len(self.playerSortedObjectDict[gameObject.player]))
+			gameObject.ID = gameObject.player + gameObject.objectType + str(len(self.playerSortedObjectDict[gameObject.player]))
 			return True
 		else:
 			return False
@@ -26,7 +26,7 @@ class GameMap:
 	def removeObject(self, player, ID): #only removes the object from the actual gameObject list
 		for gameObject in self.playerSortedObjectDict[player]:
 			if gameObject.ID == ID:
-				#self.playerSortedObjectDict[player].remove(gameObject)
+				self.playerSortedObjectDict[player].remove(gameObject)
 				self.gameObjects.remove(gameObject)
 				return True
 			else:
@@ -45,7 +45,7 @@ class GameMap:
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement
 
-	def update(self): 
+	def update(self):
 		for gameObject in self.gameObjects:
 			#TEST CODE REMOVE LATER
 			Movement.vectorMovementWithoutCollision(self, gameObject)

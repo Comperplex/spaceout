@@ -1,9 +1,16 @@
 class GameObject:
 
+	validObjects = ['drone', 'beacon', 'tower', 'default'] #Definition list of all possible object type strings
+
 	def __init__(self, loc, objectType, player):
 		#Static attributes:
 		self.loc = loc
-		self.objectType = objectType
+
+		if(objectType in self.validObjects):
+			self.objectType = objectType
+		else:
+			self.objectType = 'default'
+
 		self.ID = 0
 		self.player = player
 

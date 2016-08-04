@@ -2,12 +2,12 @@ import GameObject
 import Movement
 
 class GameMap:
-	size = [500, 500]
 
-	def __init__(self, maxEntities):
+	def __init__(self, maxEntities, size=[500, 500]):
 		self.maxEntities = maxEntities
 		self.gameObjects = []
 		self.playerSortedObjectDict = {} #Contains ALL game objects that ever existed
+		self.size = size
 
 	def addObject(self, gameObject): #Tries to add a new game Object to the dictionary of game objects. Returns true if successful and false otherwise
 		if gameObject.loc[0] in range(self.size[0]) and gameObject.loc[1] in range(self.size[1]) and len(self.gameObjects) < self.maxEntities:

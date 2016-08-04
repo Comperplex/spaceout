@@ -12,7 +12,7 @@ class GameMap:
 	def addObject(self, gameObject): #Tries to add a new game Object to the dictionary of game objects. Returns true if successful and false otherwise
 		if gameObject.loc[0] in range(self.size[0]) and gameObject.loc[1] in range(self.size[1]) and len(self.gameObjects) < self.maxEntities:
 			if gameObject.player in self.playerSortedObjectDict:
-				self.playerSortedObjectDict[gameObject.player[0]].append(gameObject)
+				self.playerSortedObjectDict[gameObject.player].append(gameObject)
 				#self.playerSortedObjectDict[gameObject.player][0].append(gameObject)
 				#self.playerSortedObjectDict[gameObject.player][1] += 1
 				#If the object dict contains objects from this player already, add this new object to the list
@@ -26,7 +26,7 @@ class GameMap:
 			IDNumList = []
 			for someGameObject in self.playerSortedObjectDict[player]:
 				if gameObject.objectType == someGameObject.objectType:
-					IDNumList.append(someGameObject.objectType.split()[2])
+					IDNumList.append(someGameObject.ID)
 			#def makeID():
 				#for i in range(max(IDNumList)):
 					#if i not in IDNumList:
@@ -38,9 +38,8 @@ class GameMap:
 						IDNum += 1
 						makeID()
 				return IDNum
-				
-			ID = makeID()
-			gameObject.ID = gameObject.player + ' ' + gameObject.objectType + ' ' + str(ID)
+
+			gameObject.ID = makeID()
 			return True
 		else:
 			return False
@@ -48,7 +47,7 @@ class GameMap:
 	def removeObject(self, player, ID): #only removes the object from the actual gameObject list
 		for gameObject in self.playerSortedObjectDict[player]:
 			if gameObject.ID == ID:
-				self.playerSortedObjectDict[player][0].remove(gameObject)
+				self.playerSortedObjectDict[player].remove(gameObject)
 				self.gameObjects.remove(gameObject)
 				return True
 		return False

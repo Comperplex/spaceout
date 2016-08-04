@@ -11,7 +11,7 @@ class GameObject:
 		else:
 			self.objectType = 'default'
 
-		self.ID = 0
+		self.ID = None
 		self.player = player
 
 		#Dynamic attributes:
@@ -25,3 +25,6 @@ class GameObject:
 	def update(self): #Each game object must be updated every tick
 		v, a = self.velocity, self.acceleration
 		self.velocity = [v[0] + a[0], v[1] + a[1]]
+
+	def getUniqueID(self):
+		return self.player + ' ' + self.objectType + ' ' +  str(self.ID)

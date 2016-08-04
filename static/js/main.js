@@ -13,7 +13,6 @@ $(document).ready(function(){
 			strokeStyle: '#00c',
 			strokeWidth: 2,
 			fillStyle: '#33f',
-			x: obj.loc[0], y: obj.loc[1],
 			radius: 10,
 			sides: 3,
 			p1: {
@@ -29,7 +28,6 @@ $(document).ready(function(){
 			strokeStyle: '#667',
 			strokeWidth: 4,
 			fillStyle: '#99a',
-			x: 100, y: 100,
 			width: 100, height: 100
 		}
 	}
@@ -41,10 +39,19 @@ $(document).ready(function(){
 		console.dir(gameMap);
 		gameMap.forEach(function(obj){
 			if (obj.objectType == 'drone'){
-				$canvas.drawPath(shapes.drone);
+				drone = shapes.drone;
+				drone.x = obj.loc[0];
+				drone.y = obj.loc[1];
+				$canvas.drawPath(drone);
 			} else if (obj.objectType == 'beacon'){
+				beacon = shapes.beacon;
+				beacon.x = obj.loc[0];
+				beacon.y = obj.loc[1];
 				$canvas.drawEllipse(shapes.beacon);
 			} else if (obj.objectType == 'asteroid'){
+				asteroid = shapes.asteroid;
+				asteroid.x = obj.loc[0];
+				asteroid.y = obj.loc[1];
 				$canvas.drawEllipse(shapes.asteroid);
 			}
 		});

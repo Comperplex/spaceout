@@ -18,7 +18,25 @@ class GameMap:
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 			self.gameObjects.append(gameObject)
-			gameObject.ID = gameObject.player + gameObject.objectType + str(len(self.playerSortedObjectDict[gameObject.player]))
+
+			IDNum = 0
+			IDNumList = []
+			for someGameObject in self.playerSortedObjectDict[player]:
+				if gameObject.objectType == someGameObject.objectType:
+					IDNumList.append(someGameObject.objectType.split()[2])
+			def makeID():
+				for i in range(max(IDNumList)):
+					if i not in IDNumList:
+						return i
+				return max(IDNumList) + 1
+
+				#for i in IDNumList:
+					#if IDNum = i:
+						#IDNum += 1
+						#makeID()
+				#return IDNum
+			ID = makeID()
+			gameObject.ID = gameObject.player + ' ' + gameObject.objectType + ' ' + str(ID)
 			return True
 		else:
 			return False

@@ -4,10 +4,17 @@ import os
 import re
 import json
 
-from Game.GameMap import GameMap
-from Game.GameObject import GameObject
+import os, sys
 
-os.system("compass watch &") # This is only for testing purposes. Remove on production
+currDir = os.path.dirname(os.path.realpath(__file__))
+rootDir = os.path.abspath(os.path.join(currDir, '.'))
+gameDir = rootDir + "\\Game"
+sys.path.append(gameDir)
+
+from Game import GameMap
+from Game import GameObject
+
+#os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):

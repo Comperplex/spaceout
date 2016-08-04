@@ -14,7 +14,7 @@ def runGame():
 	gameMap.addObject(myObject)
 
 	while True:
-		if(time.time() - currentTime  > 1): #10,000 ticks per second. This number can be changed as necessary
+		if(time.time() - currentTime  > .1): #10,000 ticks per second. This number can be changed as necessary
 			tick()
 			tickCount += 1
 			currentTime = time.time()

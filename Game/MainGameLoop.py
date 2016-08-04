@@ -1,6 +1,5 @@
 import time
 import threading
-
 from GameMap import GameMap
 from GameObject import GameObject
 

@@ -1,6 +1,6 @@
 class GameObject():
 
-	validObjects = ['beacon', 'tower', 'default', 'asteroid', 'fighter', 'defender', 'worker', 'mine', 'scrap'] #Definition list of all possible object type strings
+	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'fighter', 'defender', 'worker', 'mine', 'scrap'] #Definition list of all possible object type strings
 
 	def __init__(self, loc, objectType, player):
 		#Static attributes:
@@ -20,7 +20,7 @@ class GameObject():
 		self.mass = 10
 		#Variable convention:
 		#Player: a string representing the player name the object belongs to. Same for every object the player owns
-		#ID: A string that, on instantiation of the object, is set as the objectType + the current count of object the player owns
+		#ID: A unique number for this object within objects of the same player and type
 
 	def update(self): #Each game object must be updated every tick
 		v, a = self.velocity, self.acceleration
@@ -39,12 +39,17 @@ class Tower(GameObject):
 
 class Drone(GameObject):
 	def __init__(self, **kwargs):
-		GameObject.__init__(kwargs['loc'], 'drone' + kwargs['droneType'], kwargs['player'])
+		if('droneType' in kwargs):
+			objectType = kwargs['droneType']
+		else:
+			objectType = 'drone'
+
+		GameObject.__init__(self, kwargs['loc'], objectType, kwargs['player'])
 
 class Worker(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(kwargs['loc'], kwargs['player'], droneType='worker')
+		Drone.__init__(self, **kwargs, droneType='worker')
 
 class Fighter(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(kwargs['loc'], kwargs['player'], droneType='fighter')
+		Drone.__init__(self, **kwargs, droneType='fighter')

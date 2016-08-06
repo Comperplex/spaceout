@@ -11,10 +11,11 @@ class GameMap:
 	def addObject(self, gameObject): #Tries to add a new game Object to the dictionary of game objects. Returns true if successful and false otherwise
 		if gameObject.loc[0] in range(self.size[0]) and gameObject.loc[1] in range(self.size[1]) and len(self.gameObjects) < self.maxEntities:
 			if gameObject.player in self.playerSortedObjectDict:
+				#If the object dict contains objects from this player already, add this new object to the list
 				self.playerSortedObjectDict[gameObject.player].append(gameObject)
 				#self.playerSortedObjectDict[gameObject.player][0].append(gameObject)
 				#self.playerSortedObjectDict[gameObject.player][1] += 1
-				#If the object dict contains objects from this player already, add this new object to the list
+
 			else:
 				#self.playerSortedObjectDict[gameObject.player] = ([gameObject], 0)
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]

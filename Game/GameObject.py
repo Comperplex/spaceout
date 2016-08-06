@@ -31,15 +31,25 @@ class GameObject():
 
 class Beacon(GameObject):
 	def __init__(self, **kwargs):
-		GameObject.__init__(kwargs['loc'], 'beacon', kwargs['player'])
+		if('beaconType' in kwargs): #objectType support for multiple types of beacons
+			objectType = kwargs['beaconType']
+		else:
+			objectType = 'beacon'
+
+		GameObject.__init__(kwargs['loc'], objectType, kwargs['player'])
 
 class Tower(GameObject):
 	def __init__(self, **kwargs):
-		GameObject.__init__(kwargs['loc'], 'tower', kwargs['player'])
+		if('towerType' in kwargs): #objectType support for multiple types of towers
+			objectType = kwargs['towerType']
+		else:
+			objectType = 'tower'
+
+		GameObject.__init__(kwargs['loc'], objectType, kwargs['player'])
 
 class Drone(GameObject):
 	def __init__(self, **kwargs):
-		if('droneType' in kwargs):
+		if('droneType' in kwargs): #objectType support for multiple types of drones
 			objectType = kwargs['droneType']
 		else:
 			objectType = 'drone'

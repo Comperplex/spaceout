@@ -7,6 +7,7 @@ updateCanvasSize = function(){
 $(document).ready(function(){
 	$(window).resize(updateCanvasSize);
 	updateCanvasSize();
+	$canvas = $('#gameCanvas');
 
 	shapes = {
 		'drone': {
@@ -36,6 +37,7 @@ $(document).ready(function(){
 		$.get('/api/getMap', function(gameMapStr){
 			gameMap = JSON.parse(gameMapStr);
 			console.dir(gameMap);
+			$canvas.clearCanvas();
 			gameMap.forEach(function(obj){
 				if (obj.objectType == 'drone'){
 					drone = shapes.drone;
@@ -57,9 +59,16 @@ $(document).ready(function(){
 		});
 	};
 
-	$canvas = $('#gameCanvas');
 	drawMap();
-	$.get('/api/addObj');
 
-	
+	function runGame(tickFreq=2){
+		var tickCount = 0;
+
+		window.gameLoop = window.setInterval(function(){
+			drawMap();
+			tickCount += 1;
+		}, tickFreq);
+	}
+
+	runGame();
 });

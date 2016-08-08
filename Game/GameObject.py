@@ -36,7 +36,11 @@ class Beacon(GameObject):
 		else:
 			objectType = 'beacon'
 
-		GameObject.__init__(kwargs['loc'], objectType, kwargs['player'])
+		GameObject.__init__(self, kwargs['loc'], objectType, kwargs['player'])
+
+	def update(self): #Overrides update() in parent class
+		GameObject.update(self)
+		#include object specific update code here
 
 class Tower(GameObject):
 	def __init__(self, **kwargs):
@@ -45,7 +49,11 @@ class Tower(GameObject):
 		else:
 			objectType = 'tower'
 
-		GameObject.__init__(kwargs['loc'], objectType, kwargs['player'])
+		GameObject.__init__(self, kwargs['loc'], objectType, kwargs['player'])
+
+	def update(self): #Overrides update() in parent class
+		GameObject.update(self)
+		#include object specific update code here
 
 class Drone(GameObject):
 	def __init__(self, **kwargs):
@@ -56,10 +64,22 @@ class Drone(GameObject):
 
 		GameObject.__init__(self, kwargs['loc'], objectType, kwargs['player'])
 
+	def update(self): #Overrides update() in parent class
+		GameObject.update(self)
+		#include object specific update code here
+
 class Worker(Drone):
 	def __init__(self, **kwargs):
 		Drone.__init__(self, **kwargs, droneType='worker')
 
+	def update(self): #Overrides update() in parent class
+		Drone.update(self)
+		#include object specific update code here
+
 class Fighter(Drone):
 	def __init__(self, **kwargs):
 		Drone.__init__(self, **kwargs, droneType='fighter')
+
+	def update(self): #Overrides update() in parent class
+		Drone.update(self)
+		#include object specific update code here

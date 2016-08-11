@@ -25,7 +25,7 @@
 	</canvas>
 
 	<div id="controlPanel">
-		<button onClick="$.get('/api/addObj');">Add Drone</button>
+		<button onClick="$.get('/api/addObj', {loc:'[20,100]', type:'drone', player:'charter'});">Add Drone</button>
 		<button onClick="drawMap();">Redraw Map</button>
 	</div>
 

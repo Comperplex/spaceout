@@ -39,21 +39,25 @@ $(document).ready(function(){
 			console.dir(gameMap);
 			$canvas.clearCanvas();
 			gameMap.forEach(function(obj){
-				if (obj.objectType == 'drone'){
-					drone = shapes.drone;
-					drone.x = obj.loc[0];
-					drone.y = obj.loc[1];
-					$canvas.drawPath(drone);
-				} else if (obj.objectType == 'beacon'){
-					beacon = shapes.beacon;
-					beacon.x = obj.loc[0];
-					beacon.y = obj.loc[1];
-					$canvas.drawEllipse(shapes.beacon);
-				} else if (obj.objectType == 'asteroid'){
-					asteroid = shapes.asteroid;
-					asteroid.x = obj.loc[0];
-					asteroid.y = obj.loc[1];
-					$canvas.drawEllipse(shapes.asteroid);
+				switch (obj.objectType){
+					case 'drone':
+						drone = shapes.drone;
+						drone.x = obj.loc[0];
+						drone.y = obj.loc[1];
+						$canvas.drawPath(drone);
+						break;
+					case 'beacon':
+						beacon = shapes.beacon;
+						beacon.x = obj.loc[0];
+						beacon.y = obj.loc[1];
+						$canvas.drawEllipse(shapes.beacon);
+						break;
+					case 'asteroid':
+						asteroid = shapes.asteroid;
+						asteroid.x = obj.loc[0];
+						asteroid.y = obj.loc[1];
+						$canvas.drawEllipse(shapes.asteroid);
+						break;
 				}
 			});
 		});
@@ -61,13 +65,13 @@ $(document).ready(function(){
 
 	drawMap();
 
-	function runGame(tickFreq=2){
+	function runGame(tickFreq=1){
 		var tickCount = 0;
 
 		window.gameLoop = window.setInterval(function(){
 			drawMap();
 			tickCount += 1;
-		}, tickFreq);
+		}, tickFreq*1000);
 	}
 
 	runGame();

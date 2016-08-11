@@ -1,5 +1,5 @@
 import cherrypy, jinja2
-import os, sys, re, json
+import os, sys, re, ast, json
 import threading
 
 currDir = os.path.dirname(os.path.realpath(__file__))
@@ -37,13 +37,11 @@ class Main(object):
 				flatGameMap.append(i.__dict__)
 			return json.dumps(flatGameMap)
 		elif args[0] == 'addObj':
-			#if ['loc','type','player'].issubset(kwargs):
-			myObject = GameObject([0,0], 'drone', 'owen')
-			myObject.velocity = [1, 0]
-			#myObject = GameObject(kwargs['loc'], kwargs['type'], kwargs['player'])
-			#myObject.velocity = [0,0]
-			MainGameLoop.gameMap.addObject(myObject)
-			return json.dumps(myObject.__dict__)
+			if set(['loc','type','player']).issubset(kwargs):
+				myObject = GameObject(ast.literal_eval(str(kwargs['loc'])), kwargs['type'], kwargs['player'])
+				myObject.velocity = [1,0.5]
+				MainGameLoop.gameMap.addObject(myObject)
+				return json.dumps(myObject.__dict__)
 		else:
 			return error(message="API method does not exist")
 

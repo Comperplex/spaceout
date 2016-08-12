@@ -1,6 +1,6 @@
 class GameObject():
 
-	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'mine', 'scrap'] #Definition list of all possible object type strings
+	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'mine', 'scrap', 'worker', 'fighter'] #Definition list of all possible object type strings
 
 	def __init__(self, loc, objectType, player):
 		#Static attributes:
@@ -17,8 +17,8 @@ class GameObject():
 		#Dynamic attributes:
 		self.velocity = [0, 0] #Velocity vector. For example: [1, 0] refers to positive x direction at 1 unit per second
 		self.acceleration = [0, 0]
-		self.mass = {'beacon':1000, 'tower':100, 'default':10, 'drone':10, 'asteroid':5, 'mine':1, 'scrap':1}[self.objectType] #Get mass from dictionary according to the object type
-		
+		self.mass = {'beacon':1000, 'tower':100, 'default':10, 'drone':10, 'asteroid':5, 'mine':1, 'scrap':1, 'worker':10, 'fighter':15}[self.objectType] #Get mass from dictionary according to the object type
+
 		#Variable convention:
 		#Player: a string representing the player name the object belongs to. Same for every object the player owns
 		#ID: A unique number for this object within objects of the same player and type
@@ -71,7 +71,7 @@ class Drone(GameObject):
 
 class Worker(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, kwargs, droneType='worker')
+		Drone.__init__(self, **kwargs, droneType='worker')
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)
@@ -79,7 +79,7 @@ class Worker(Drone):
 
 class Fighter(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, kwargs, droneType='fighter')
+		Drone.__init__(self, **kwargs, droneType='fighter')
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)

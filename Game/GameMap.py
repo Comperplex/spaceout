@@ -1,8 +1,11 @@
 import Movement
 
+from Variables import Variables
+variable = Variables()
+
 class GameMap:
 
-	def __init__(self, maxEntities, size=[500, 500]):
+	def __init__(self, maxEntities, size=variable.map_size):
 		self.maxEntities = maxEntities
 		self.gameObjects = []
 		self.playerSortedObjectDict = {} #Contains ALL game objects that ever existed

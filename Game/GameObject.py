@@ -84,3 +84,16 @@ class Fighter(Drone):
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)
 		#include object specific update code here
+
+class Asteroid(GameObject):
+	def __init__(self, **kwargs):
+		if('asteroidType' in kwargs): #objectType support for multiple types of beacons
+			objectType = kwargs['asteroidType']
+		else:
+			objectType = 'asteroid'
+
+		GameObject.__init__(self, kwargs['loc'], objectType, kwargs['player'])
+
+	def update(self): #Overrides update() in parent class
+		GameObject.update(self)
+		#include object specific update code here

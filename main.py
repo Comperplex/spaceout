@@ -38,8 +38,9 @@ class Main(object):
 			return json.dumps(flatGameMap)
 		elif args[0] == 'addObj':
 			if set(['loc','type','player']).issubset(kwargs):
-				myObject = GameObject(ast.literal_eval(str(kwargs['loc'])), kwargs['type'], kwargs['player'])
-				myObject.velocity = [1,0.5]
+				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
+				myObject = GameObject(loc, kwargs['type'], kwargs['player'])
+				myObject.velocity = [1,1]
 				MainGameLoop.gameMap.addObject(myObject)
 				return json.dumps(myObject.__dict__)
 		else:

@@ -10,6 +10,7 @@ sys.path.append(gameDir)
 from Game.GameMap import GameMap
 from Game.GameObject import GameObject
 from Game import MainGameLoop
+from Game import config
 
 #os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
@@ -51,6 +52,10 @@ class Main(object):
 		return error(404)
 
 if __name__ == '__main__':
+	#Just for fun, the following two lines count the number of times this code has been run and saves it in variables.ini
+	init_count = config.load_var(var_name='init_count', section='global_stats')
+	config.save_var_string(var_name='init_count', section='global_stats', var_string=str(init_count + 1))
+
 	conf = {
 		'/': {
 			'tools.staticdir.root': os.path.abspath(os.getcwd())

@@ -3,7 +3,7 @@ import os, sys
 
 currDir = os.path.dirname(os.path.realpath(__file__))
 rootDir = os.path.abspath(os.path.join(currDir, '..'))
-gameDir = rootDir + "\\Game"
+gameDir = os.path.join(rootDir, "Game")
 sys.path.append(gameDir)
 
 from GameObject import Drone, Worker, GameObject

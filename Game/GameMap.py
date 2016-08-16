@@ -1,48 +1,40 @@
 import Movement
-
-from Variables import Variables
-variable = Variables()
+import config
 
 class GameMap:
+	def __init__(self, max_entities=config.load_var('max_entities'), size=[config.load_var('map_x_size'), config.load_var('map_y_size')]):
+		#constants from config file
+		self.maxEntities = max_entities
+		self.size = size
 
-	def __init__(self, maxEntities, size=variable.map_size):
-		self.maxEntities = maxEntities
+		#dynamic game variables
 		self.gameObjects = []
 		self.playerSortedObjectDict = {} #Contains ALL game objects that ever existed
-		self.size = size
 
 	def addObject(self, gameObject): #Tries to add a new game Object to the dictionary of game objects. Returns true if successful and false otherwise
 		if gameObject.loc[0] in range(self.size[0]) and gameObject.loc[1] in range(self.size[1]) and len(self.gameObjects) < self.maxEntities:
 			if gameObject.player in self.playerSortedObjectDict:
 				#If the object dict contains objects from this player already, add this new object to the list
 				self.playerSortedObjectDict[gameObject.player].append(gameObject)
-				#self.playerSortedObjectDict[gameObject.player][0].append(gameObject)
-				#self.playerSortedObjectDict[gameObject.player][1] += 1
-
 			else:
-				#self.playerSortedObjectDict[gameObject.player] = ([gameObject], 0)
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 			self.gameObjects.append(gameObject)
 
-			IDNum = 0
 			IDNumList = []
 			for someGameObject in self.playerSortedObjectDict[gameObject.player]:
 				if gameObject.objectType == someGameObject.objectType:
 					IDNumList.append(someGameObject.ID)
-			#def makeID():
-				#for i in range(max(IDNumList)):
-					#if i not in IDNumList:
-						#return i
-				#return max(IDNumList) + 1
-			def makeID(IDNum):
+
+			def makeID():
+				IDNum = 0
 				for i in IDNumList:
 					if IDNum == i:
 						IDNum += 1
-						makeID(IDNum)
 				return IDNum
 
-			gameObject.ID = makeID(IDNum)
+			gameObject.ID = makeID()
+			#print("added oject with ID " + str(gameObject.ID) + " it belongs to player: " + gameObject.player)
 			return True
 		else:
 			return False

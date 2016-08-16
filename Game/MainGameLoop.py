@@ -3,8 +3,8 @@ import threading
 import random
 
 from GameMap import GameMap
-from GameObject import GameObject
-from Variables import Variables
+from GameObject import GameObject, Asteroid
+import config
 
 from functools import wraps
 def delay(delay=0.): # sets a timer to run a function later on - http://fredericiana.com/2014/11/14/settimeout-python-delay/
@@ -16,16 +16,14 @@ def delay(delay=0.): # sets a timer to run a function later on - http://frederic
         return delayed
     return wrap
 
-variable = Variables()
-
-gameMap = GameMap(variable.max_entities)
-
-for a in range(variable.max_asteroids + 1):#Creates Asteroids Before game starts
-    loc = [randint(0, variable.map_size), randint(0, variable.map_size)]
-    asteroid = GameObject(loc, "asteroid", "map")
-    gameMap.addObject(asteroid)
+gameMap = GameMap(config.load_var('max_entities'))
 
 def runGame(tickFreq=.1):
+	for _ in range(config.load_var('max_asteroids') + 1):#Creates Asteroids Before game starts
+	    loc = [random.randint(0, config.load_var('map_x_size')), random.randint(0, config.load_var('map_y_size'))]
+	    asteroid = Asteroid(loc=loc, player='map')
+	    gameMap.addObject(asteroid)
+
 	currentTime = time.time()
 	startTime = currentTime
 	tickCount = 0

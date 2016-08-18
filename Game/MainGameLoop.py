@@ -19,10 +19,10 @@ def delay(delay=0.): # sets a timer to run a function later on - http://frederic
 gameMap = GameMap(config.load_var('max_entities'))
 
 def runGame(tickFreq=.1):
-	for _ in range(config.load_var('max_asteroids') + 1):#Creates Asteroids Before game starts
-	    loc = [random.randint(0, config.load_var('map_x_size')), random.randint(0, config.load_var('map_y_size'))]
-	    asteroid = Asteroid(loc=loc, player='map')
-	    gameMap.addObject(asteroid)
+	for _ in range(config.load_var('max_asteroids')):#Creates Asteroids Before game starts
+		loc = [random.randint(0, config.load_var('map_x_size')), random.randint(0, config.load_var('map_y_size'))]
+		asteroid = Asteroid(loc=loc, player='map')
+		gameMap.addObject(asteroid)
 
 	currentTime = time.time()
 	startTime = currentTime

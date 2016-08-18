@@ -12,7 +12,7 @@ from Game.GameObject import GameObject
 from Game import MainGameLoop
 from Game import config
 
-os.system("compass watch &") # This is only for testing purposes. Remove on production
+#os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):
@@ -44,6 +44,10 @@ class Main(object):
 				myObject.velocity = [1,1]
 				MainGameLoop.gameMap.addObject(myObject)
 				return json.dumps(myObject.__dict__)
+		elif args[0] == 'writeMsg':
+			if 'msg' in kwargs:
+				print(kwargs['msg'])
+				#print kwargs['msg']
 		else:
 			return error(message="API method does not exist")
 

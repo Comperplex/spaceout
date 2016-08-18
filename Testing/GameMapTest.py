@@ -27,8 +27,11 @@ class TestGameMap(unittest.TestCase):
 		self.assertEqual(len(gameMap.playerSortedObjectDict['owen']), 2)
 		self.assertFalse(gameMap.addObject(dupeGameObject)) #Testing that too many game objects cannot be added
 
+	def testRemoveObject(self):
+		gameMap = GameMap(2)
+		gameMap.addObject(GameObject([0,0], 'drone', 'owen'))
 		self.assertTrue(gameMap.removeObject('owen', 'drone', 0))
-		self.assertEqual(len(gameMap.gameObjects), 1) #Testing the length of the unsorted gameObjects list
+		self.assertEqual(len(gameMap.gameObjects), 0) #Testing the length of the unsorted gameObjects list
 
 	def testID(self):
 		gameMap = GameMap(100)

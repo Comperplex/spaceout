@@ -28,7 +28,10 @@ class GameObject():
 		self.velocity = [v[0] + a[0], v[1] + a[1]]
 
 	def getUniqueID(self):
-		return self.player + ' ' + self.objectType + ' ' +  str(self.ID)
+		ID = self.player + ',' + self.objectType + ','
+		if self.ID == None:
+			return ID
+		return ID + str(self.ID)
 
 class Beacon(GameObject):
 	def __init__(self, **kwargs):
@@ -71,7 +74,7 @@ class Drone(GameObject):
 
 class Worker(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, kwargs, droneType='worker')
+		Drone.__init__(self, **kwargs, droneType='worker')
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)
@@ -79,7 +82,7 @@ class Worker(Drone):
 
 class Fighter(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, kwargs, droneType='fighter')
+		Drone.__init__(self, **kwargs, droneType='fighter')
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)

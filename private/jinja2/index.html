@@ -8,6 +8,7 @@
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/16.7.3/jcanvas.min.js"></script>
 	<script type="text/javascript" src="/static/js/main.js"></script>
 
 	<meta charset="utf-8">
@@ -24,7 +25,7 @@
 
 	<div id="controlPanel">
 		<button onclick="$.get('/api/addObj', {'loc':'20,100', 'type':'drone', 'player':'charter'});">Add Drone</button>
-		<button onclick="$.get('/api/addObj', {'loc':'20,100', 'type':'beacon', 'player':'charter'});">Add Beacon</button>
+		<button onclick="drawMap();">Redraw Map</button>
 	</div>
 
 </body>

@@ -1,16 +1,16 @@
 $(document).ready(function(){
 	var $map = $('#gameArea');
 
-	function pm(input, margin=1){ // plus or minus a random number by a specified margin
+	function pm(input, margin=1){
 		return input + (Math.random() * (margin * 2)) - margin;
 	}
 
-	function getAngle(v){ // get the angle given an x,y vector
+	function getAngle(v){
 		return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
 	}
 
 	function addDrone(obj){
-		var $drone = $("<svg id=\""+obj.ID+"\" width=\"20px\" height=\"20px\" viewBox=\"0 0 10 10\">\n<polygon fill=\"#33f\" stroke=\"#00c\" stroke-width=\"1\" stroke-linejoin=\"round\" points=\"5,0.5 0.5,9.5 5,8 9.5,9.5 5,0.5\"></polygon>\n</svg>");
+		$drone = $("<svg id=\""+obj.ID+"\" width=\"20px\" height=\"20px\" viewBox=\"0 0 10 10\">\n<polygon fill=\"#33f\" stroke=\"#00c\" stroke-width=\"1\" stroke-linejoin=\"round\" points=\"5,0.5 0.5,9.5 5,8 9.5,9.5 5,0.5\"></polygon>\n</svg>");
 		$drone.css({
 			left: obj.loc[0]+'px',
 			top: obj.loc[1]+'px',
@@ -20,7 +20,7 @@ $(document).ready(function(){
 	}
 
 	function addBeacon(obj){
-		var beacon = $("<svg width=\"400px\" height=\"400px\" viewBox=\"0 0 10 10\">\n<circle cx=\"5\" cy=\"5\" r=\"4.75\" stroke=\"#667\" stroke-width=\"0.5\" fill=\"#99a\" stroke-linejoin=\"round\" />\n</svg>";)
+		var $beacon = $("<svg width=\"400px\" height=\"400px\" viewBox=\"0 0 10 10\">\n<circle cx=\"5\" cy=\"5\" r=\"4.75\" stroke=\"#667\" stroke-width=\"0.5\" fill=\"#99a\" stroke-linejoin=\"round\" />\n</svg>");
 		$beacon.css({
 			left: obj.loc[0]+'px',
 			top: obj.loc[1]+'px'
@@ -68,7 +68,7 @@ $(document).ready(function(){
 				}
 			});
 		});
-	};
+	}
 
 	function runGame(tickFreq=1){
 		var tickCount = 0;

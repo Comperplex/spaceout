@@ -1,6 +1,6 @@
 class GameObject():
 
-	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'mine', 'scrap', 'worker', 'fighter', 'defender', 'builder'] #Definition list of all possible object type strings
+	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'mine', 'scrap', 'worker', 'fighter'] #Definition list of all possible object type strings
 
 	def __init__(self, loc, objectType, player):
 		#Static attributes:
@@ -17,7 +17,7 @@ class GameObject():
 		#Dynamic attributes:
 		self.velocity = [0, 0] #Velocity vector. For example: [1, 0] refers to positive x direction at 1 unit per second
 		self.acceleration = [0, 0]
-		self.mass = {'beacon':1000, 'tower':100, 'default':10, 'drone':10, 'asteroid':5, 'mine':1, 'scrap':1, 'worker':10, 'fighter':10}[self.objectType] #Get mass from dictionary according to the object type
+		self.mass = {'beacon':1000, 'tower':100, 'default':10, 'drone':10, 'asteroid':5, 'mine':1, 'scrap':1, 'worker':10, 'fighter':15}[self.objectType] #Get mass from dictionary according to the object type
 
 		#Variable convention:
 		#Player: a string representing the player name the object belongs to. Same for every object the player owns

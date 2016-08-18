@@ -12,7 +12,7 @@ from Game.GameObject import GameObject
 from Game import MainGameLoop
 from Game import config
 
-os.system("compass watch &") # This is only for testing purposes. Remove on production
+#os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):

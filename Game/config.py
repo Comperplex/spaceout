@@ -1,8 +1,8 @@
 import os
-import configparser
+from configparser import ConfigParser
 
 currDir = os.path.dirname(os.path.realpath(__file__))
-config = configparser.ConfigParser()
+config = ConfigParser()
 
 def load_var(var_name, section='setup_vars', isInt=True, filename='\\variables.ini'):
 	config.read(currDir + filename)

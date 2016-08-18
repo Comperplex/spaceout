@@ -28,29 +28,29 @@ class GameMap:
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 			self.gameObjects.append(gameObject)
-			gameObject.ID = gameObject.getUniqueID() + str(IDNum)
+			gameObject.ID = gameObject.player + ',' + gameObject.objectType + ',' + str(IDNum)
 			print("added oject with ID " + str(gameObject.ID) + " it belongs to player: " + gameObject.player)
 			return True
 		else:
 			return False
 
-	def removeObject(self, player, objectType, ID): #only removes the object from the actual gameObject list
-		gameObject = self.getSpecificGameObject(player, objectType, ID)
+	def removeObject(self, player, objectType, IDNum): #only removes the object from the actual gameObject list
+		gameObject = self.getObject(player, objectType, IDNum)
 		if gameObject != None:
 			self.playerSortedObjectDict[player].remove(gameObject)
 			self.gameObjects.remove(gameObject)
 			return True
 		return False
 
-	def getSpecificGameObject(self, player, objectType, ID):
+	def getObject(self, player, objectType, IDNum):
 		for gameObject in self.playerSortedObjectDict[player]:
-			if gameObject.ID == ID and gameObject.objectType == objectType:
+			if int(gameObject.ID.split(',')[2]) == IDNum and gameObject.objectType == objectType:
 				return gameObject
 
-	def teleportObject(self, player, objectType, ID, xIncrement, yIncrement):
+	def teleportObject(self, player, objectType, IDNum, xIncrement, yIncrement):
 		#Moves the object without any collision whatsoever. Think of this as a "Teleport"
 		#Unlike moveWithCollision, this method moves an arbitary distance in both x and y
-		gameObject = self.getSpecificGameObject(player, objectType, ID)
+		gameObject = self.getObject(player, objectType, IDNum)
 		if (gameObject.player.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement

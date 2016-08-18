@@ -21,17 +21,11 @@ class GameObject():
 
 		#Variable convention:
 		#Player: a string representing the player name the object belongs to. Same for every object the player owns
-		#ID: A unique number for this object within objects of the same player and type
+		#ID: A unique ID that is dynamically assigned for each gameObject on the map. In the form player,objectType,number
 
 	def update(self): #Each game object must be updated every tick
 		v, a = self.velocity, self.acceleration
 		self.velocity = [v[0] + a[0], v[1] + a[1]]
-
-	def getUniqueID(self):
-		ID = self.player + ',' + self.objectType + ','
-		if self.ID == None:
-			return ID
-		return ID + str(self.ID)
 
 class Beacon(GameObject):
 	def __init__(self, **kwargs):

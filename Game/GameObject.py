@@ -68,7 +68,7 @@ class Drone(GameObject):
 
 class Worker(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, **kwargs, droneType='worker')
+		Drone.__init__(self, droneType='worker', **kwargs)
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)
@@ -76,7 +76,7 @@ class Worker(Drone):
 
 class Fighter(Drone):
 	def __init__(self, **kwargs):
-		Drone.__init__(self, **kwargs, droneType='fighter')
+		Drone.__init__(self, droneType='fighter', **kwargs)
 
 	def update(self): #Overrides update() in parent class
 		Drone.update(self)

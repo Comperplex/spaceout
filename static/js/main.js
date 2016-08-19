@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	var $map = $('#gameArea');
 
-	function pm(input, margin=1){
+	function pm(input, margin=1){ // add or subtract a random amount within the specified margin
 		return input + (Math.random() * (margin * 2)) - margin;
 	}
 
-	function getAngle(v){
+	function getAngle(v){ // get angle given an x,y vector
 		return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
 	}
 
@@ -70,13 +70,13 @@ $(document).ready(function(){
 		});
 	}
 
-	function runGame(tickFreq=1){
+	function runGame(tickFreq=1){ // how many seconds between loops
 		var tickCount = 0;
 
 		window.gameLoop = window.setInterval(function(){
 			drawMap();
 			tickCount += 1;
-		}, tickFreq*5000);
+		}, tickFreq*1000); // don't edit this number, it's just for converting from milliseconds to seconds
 	}
 
 	runGame();

@@ -15,7 +15,10 @@ $(document).ready(function(){
 			left: obj.loc[0]+'px',
 			top: obj.loc[1]+'px',
 			transform: 'rotate('+getAngle(obj.velocity)+'deg)'
-		});
+		}).animate({
+			left: (obj.loc[0] + obj.velocity[0])+'px',
+			top: (obj.loc[1] + obj.velocity[1])+'px'
+		}, 1000, 'easeInSine');
 		return $drone;
 	}
 
@@ -24,7 +27,10 @@ $(document).ready(function(){
 		$beacon.css({
 			left: obj.loc[0]+'px',
 			top: obj.loc[1]+'px'
-		});
+		}).animate({
+			left: (obj.loc[0] + obj.velocity[0])+'px',
+			top: (obj.loc[1] + obj.velocity[1])+'px'
+		}, 1000, 'easeInSine');
 		return $beacon;
 	}
 
@@ -34,7 +40,10 @@ $(document).ready(function(){
 		$asteroid.css({
 			left: obj.loc[0]+'px',
 			top: obj.loc[1]+'px'
-		});
+		}).animate({
+			left: (obj.loc[0] + obj.velocity[0])+'px',
+			top: (obj.loc[1] + obj.velocity[1])+'px'
+		}, 1000, 'easeInSine');
 		return $asteroid;
 	}
 
@@ -52,7 +61,10 @@ $(document).ready(function(){
 						'left':obj.loc[0]+'px',
 						'top':obj.loc[1]+'px',
 						'transform':'rotate('+getAngle(obj.velocity)+'deg)'
-					});
+					}).animate({
+						left: (obj.loc[0] + obj.velocity[0])+'px',
+						top: (obj.loc[1] + obj.velocity[1])+'px'
+					}, 1000, 'linear');
 				} else {
 					switch (obj.objectType){
 						case 'drone':

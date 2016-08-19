@@ -38,10 +38,10 @@ class TestGameMap(unittest.TestCase):
 
 		for i in range(10):
 			gameMap.addObject(GameObject([0,0], 'drone', 'owen'))
-			self.assertEqual(gameMap.gameObjects[i].ID, 'owen,drone,' + str(i)) #Testing successful ID assignment
+			self.assertEqual(gameMap.gameObjects[i].ID, 'owen-drone-' + str(i)) #Testing successful ID assignment
 
 		gameMap.addObject(GameObject([0,0], 'beacon', 'owen'))
-		self.assertEqual(gameMap.playerSortedObjectDict['owen'][0].ID, 'owen,drone,0') #Testing successful '0' ID assignment
+		self.assertEqual(gameMap.playerSortedObjectDict['owen'][0].ID, 'owen-drone-0') #Testing successful '0' ID assignment
 
 		self.assertTrue(gameMap.removeObject('owen', 'drone', 2)) #Testing successful removal of an object
 		self.assertIsNone(gameMap.getObject('owen', 'drone', 2)) #Testing that the object was indeed removed

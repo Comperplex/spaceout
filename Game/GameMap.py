@@ -21,7 +21,7 @@ class GameMap:
 					if gameObject.objectType == someGameObject.objectType:
 						IDList.append(someGameObject.ID)
 				for i in IDList:
-					if str(IDNum) == str(i).split(',')[2]:
+					if str(IDNum) == str(i).split('-')[2]:
 						IDNum += 1
 				self.playerSortedObjectDict[gameObject.player].append(gameObject)
 			else:

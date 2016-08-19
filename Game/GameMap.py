@@ -28,7 +28,7 @@ class GameMap:
 				#If the object dict contains no objects from this player, make a new list of objects for this player
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 			self.gameObjects.append(gameObject)
-			gameObject.ID = gameObject.player + ',' + gameObject.objectType + ',' + str(IDNum)
+			gameObject.ID = gameObject.player + '-' + gameObject.objectType + '-' + str(IDNum)
 			print("added oject with ID " + str(gameObject.ID) + " it belongs to player: " + gameObject.player)
 			return True
 		else:
@@ -44,7 +44,7 @@ class GameMap:
 
 	def getObject(self, player, objectType, IDNum):
 		for gameObject in self.playerSortedObjectDict[player]:
-			if int(gameObject.ID.split(',')[2]) == IDNum and gameObject.objectType == objectType:
+			if int(gameObject.ID.split('-')[2]) == IDNum and gameObject.objectType == objectType:
 				return gameObject
 
 	def teleportObject(self, player, objectType, IDNum, xIncrement, yIncrement):

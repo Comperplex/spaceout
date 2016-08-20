@@ -47,7 +47,11 @@ class Main(object):
 		elif args[0] == 'writeMsg':
 			if 'msg' in kwargs:
 				print(kwargs['msg'])
-				#print kwargs['msg']
+		elif args[0] == 'changeDirection':
+			if set(['loc','ID']).issubset(kwargs):
+				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
+				myObject = MainGameLoop.gameMap.getObject(kwargs['ID'])
+				myObject.velocity = [0,1]
 		else:
 			return error(message="API method does not exist")
 
@@ -77,7 +81,6 @@ if __name__ == '__main__':
 	thr = threading.Thread(target=MainGameLoop.runGame)
 	thr.do_run = True
 	thr.start()
-
 	def stopit():
 		thr.do_run = False
 	cherrypy.engine.subscribe('stop', stopit)

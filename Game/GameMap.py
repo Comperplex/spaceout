@@ -1,6 +1,13 @@
 import Movement
 import config
 
+def expandID(IDstr):
+	a = {}
+	a['player'] = str(IDstr.split('-')[0])
+	a['objectType'] = str(IDstr.split('-')[1])
+	a['IDnum'] = int(IDstr.split('-')[2])
+	return a
+
 class GameMap:
 	def __init__(self, max_entities=config.load_var('max_entities'), size=[config.load_var('map_x_size'), config.load_var('map_y_size')]):
 		#constants from config file
@@ -29,29 +36,32 @@ class GameMap:
 				self.playerSortedObjectDict[gameObject.player] = [gameObject]
 			self.gameObjects.append(gameObject)
 			gameObject.ID = gameObject.player + '-' + gameObject.objectType + '-' + str(IDNum)
-			print("added oject with ID " + str(gameObject.ID) + " it belongs to player: " + gameObject.player)
+			print("added oject with ID " + str(gameObject.ID) + " which belongs to player: " + gameObject.player)
 			return True
 		else:
 			return False
 
-	def removeObject(self, player, objectType, IDNum): #only removes the object from the actual gameObject list
-		gameObject = self.getObject(player, objectType, IDNum)
+	def removeObject(self, ID): #only removes the object from the actual gameObject list
+		gameObject = self.getObject(ID)
 		if gameObject != None:
 			self.playerSortedObjectDict[player].remove(gameObject)
 			self.gameObjects.remove(gameObject)
 			return True
 		return False
 
-	def getObject(self, player, objectType, IDNum):
-		for gameObject in self.playerSortedObjectDict[player]:
-			if int(gameObject.ID.split('-')[2]) == IDNum and gameObject.objectType == objectType:
+	def getObject(self, ID):
+		expandedID = expandID(ID)
+		for gameObject in self.playerSortedObjectDict[expandedID['player']]:
+			if int(gameObject.ID.split('-')[2]) == expandedID['IDnum'] and gameObject.objectType == expandedID['objectType']:
 				return gameObject
 
-	def teleportObject(self, player, objectType, IDNum, xIncrement, yIncrement):
+	def teleportObject(self, ID, goToXY):
 		#Moves the object without any collision whatsoever. Think of this as a "Teleport"
 		#Unlike moveWithCollision, this method moves an arbitary distance in both x and y
-		gameObject = self.getObject(player, objectType, IDNum)
-		if (gameObject.player.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
+		gameObject = self.getObject(ID)
+		xIncrement = goToXY[0] - gameObject.loc[0]
+		yIncrement = goToXY[1] - gameObject.loc[1]
+		if (gameObject.loc[0] + xIncrement) in range(self.size[0]) and (gameObject.loc[1] + yIncrement) in range(self.size[1]):
 			gameObject.loc[0] += xIncrement
 			gameObject.loc[1] += yIncrement
 

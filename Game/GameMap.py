@@ -44,7 +44,7 @@ class GameMap:
 	def removeObject(self, ID): #only removes the object from the actual gameObject list
 		gameObject = self.getObject(ID)
 		if gameObject != None:
-			self.playerSortedObjectDict[player].remove(gameObject)
+			self.playerSortedObjectDict[gameObject.player].remove(gameObject)
 			self.gameObjects.remove(gameObject)
 			return True
 		return False

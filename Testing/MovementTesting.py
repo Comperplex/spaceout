@@ -31,5 +31,14 @@ class MovementTesting(unittest.TestCase):
 		gameMap.update() #Here, instead of going negative, the vectorMovementWithoutCollision function does nothing
 		self.assertEqual(gameObject.loc, [0, 3])
 
+	def testNonIntegerMovement(self):
+		gameMap = GameMap(1000)
+		gameObject = GameObject([1, 0], 'drone', 'owen')
+		gameObject.velocity = [-0.5, 0]
+		gameMap.addObject(gameObject)
+
+		gameMap.update()
+		self.assertEqual(gameObject.loc, [0.5, 0])
+
 if __name__ == '__main__':
 	unittest.main()

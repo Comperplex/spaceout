@@ -30,7 +30,7 @@ class TestGameMap(unittest.TestCase):
 	def testRemoveObject(self):
 		gameMap = GameMap(2)
 		gameMap.addObject(GameObject([0,0], 'drone', 'owen'))
-		self.assertTrue(gameMap.removeObject('owen', 'drone', 0))
+		self.assertTrue(gameMap.removeObject('owen-drone-0'))
 		self.assertEqual(len(gameMap.gameObjects), 0) #Testing the length of the unsorted gameObjects list
 
 	def testID(self):
@@ -43,12 +43,12 @@ class TestGameMap(unittest.TestCase):
 		gameMap.addObject(GameObject([0,0], 'beacon', 'owen'))
 		self.assertEqual(gameMap.playerSortedObjectDict['owen'][0].ID, 'owen-drone-0') #Testing successful '0' ID assignment
 
-		self.assertTrue(gameMap.removeObject('owen', 'drone', 2)) #Testing successful removal of an object
-		self.assertIsNone(gameMap.getObject('owen', 'drone', 2)) #Testing that the object was indeed removed
-		self.assertIsNotNone(gameMap.getObject('owen', 'drone', 3)) #Testing that another object that was added indeed exists
+		self.assertTrue(gameMap.removeObject('owen-drone-2')) #Testing successful removal of an object
+		self.assertIsNone(gameMap.getObject('owen-drone-2')) #Testing that the object was indeed removed
+		self.assertIsNotNone(gameMap.getObject('owen-drone-3')) #Testing that another object that was added indeed exists
 
 		gameMap.addObject(GameObject([1, 1], 'drone', 'owen'))
-		self.assertIsNotNone(gameMap.getObject('owen', 'drone', 2)) #Testing that, after adding a new relevant game object, the old ID=2 has been re-used
+		self.assertIsNotNone(gameMap.getObject('owen-drone-2')) #Testing that, after adding a new relevant game object, the old ID=2 has been re-used
 
 if __name__ == '__main__':
 	unittest.main()

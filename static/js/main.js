@@ -57,7 +57,8 @@ $(document).ready(function(){
 	function drawMap(){
 		$.get('/api/getMap', function(gameMapStr){
 			gameMap = JSON.parse(gameMapStr);
-			gameMap.forEach(function(obj){
+			$map.width(gameMap.size[0]).height(gameMap.size[1]);
+			gameMap.objects.forEach(function(obj){
 				if ($('#'+obj.ID).length){
 					$('#'+obj.ID).css({
 						left: obj.loc[0]+'px',
@@ -81,6 +82,14 @@ $(document).ready(function(){
 							break;
 					}
 				}
+			});
+		}).then(function(){
+			$('.drone, .beacon').click(function(){
+				$(this).addClass('selected').siblings().removeClass('selected');
+			});
+			$map.click(function(e){
+				e.stopPropogation();
+				$(this).children().removeClass('selected');
 			});
 		});
 	}

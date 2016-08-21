@@ -42,7 +42,7 @@ body {
 			margin-left: -60px;
 		}
 
-		&:hover::after {
+		&:hover::after, &.selected::after {
 			visibility: visible;
 		}
 	}

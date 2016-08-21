@@ -1,8 +1,8 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i';
+@import "https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i";
 /* line 5, ../../private/scss/main.scss */
 body {
   font-family: 'Roboto', sans-serif;
-  background: black url("/static/img/background.png");
+  background: #000 url("/static/img/background.png");
   color: #999;
   overflow: hidden; }
   /* line 11, ../../private/scss/main.scss */
@@ -37,7 +37,7 @@ body {
       left: 50%;
       margin-left: -60px; }
     /* line 45, ../../private/scss/main.scss */
-    #gameArea > *:hover::after {
+    #gameArea > *:hover::after, #gameArea > *.selected::after {
       visibility: visible; }
 
 /* line 51, ../../private/scss/main.scss */

@@ -12,7 +12,7 @@ from Game.GameObject import GameObject
 from Game import MainGameLoop
 from Game import config
 
-#os.system("compass watch &") # This is only for testing purposes. Remove on production
+os.system("compass watch &") # This is only for testing purposes. Remove on production
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('private/jinja2'))
 
 def error(code=200, message=''):
@@ -33,10 +33,17 @@ class Main(object):
 		if len(args) == 0:
 			return error(404)
 		elif args[0] == 'getMap':
-			flatGameMap = []
+			jsonGameMap = {
+				'size': [config.load_var('map_x_size'), config.load_var('map_y_size')],
+				'limits': {
+					'players': config.load_var('max_players'),
+					'entities': config.load_var('max_entities')
+				},
+				'objects': []
+			}
 			for i in MainGameLoop.gameMap.gameObjects:
-				flatGameMap.append(i.__dict__)
-			return json.dumps(flatGameMap)
+				jsonGameMap['objects'].append(i.__dict__)
+			return json.dumps(jsonGameMap)
 		elif args[0] == 'addObj':
 			if set(['loc','type','player']).issubset(kwargs):
 				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]

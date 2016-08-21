@@ -1,3 +1,5 @@
+import math
+
 class GameObject():
 
 	validObjects = ['beacon', 'tower', 'default', 'drone', 'asteroid', 'mine', 'scrap', 'worker', 'fighter'] #Definition list of all possible object type strings
@@ -26,6 +28,13 @@ class GameObject():
 	def update(self): #Each game object must be updated every tick
 		v, a = self.velocity, self.acceleration
 		self.velocity = [v[0] + a[0], v[1] + a[1]]
+
+	def newVelocity(self, goTo):
+		a, b, v = self.loc, goTo, self.velocity
+		disp = [b[0]-a[0], b[1]-a[1]]
+		distance = math.sqrt( disp[0]**2 + disp[1]**2 )
+		speed = math.sqrt( v[0]**2 + v[1]**2 )
+		self.velocity = [disp[0]*(speed/distance), disp[1]*(speed/distance)]
 
 class Beacon(GameObject):
 	def __init__(self, **kwargs):

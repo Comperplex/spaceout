@@ -57,8 +57,7 @@ class Main(object):
 		elif args[0] == 'changeDirection':
 			if set(['loc','ID']).issubset(kwargs):
 				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
-				myObject = MainGameLoop.gameMap.getObject(kwargs['ID'])
-				myObject.velocity = [0,1]
+				MainGameLoop.gameMap.getObject(kwargs['ID']).newVelocity(loc);
 		else:
 			return error(message="API method does not exist")
 

@@ -1,5 +1,8 @@
 $(document).ready(function(){
 	var $map = $('#gameArea');
+	$('*').contextmenu( function() {
+    	return false;
+	});
 
 	function pm(input, margin=1){ // add or subtract a random amount within the specified margin
 		return input + (Math.random() * (margin * 2)) - margin;
@@ -84,13 +87,17 @@ $(document).ready(function(){
 				}
 			});
 		}).then(function(){
-			$('.drone, .beacon').click(function(){
+			$('.drone, .beacon').click(function(e){
+				e.stopPropagation();
 				$(this).addClass('selected').siblings().removeClass('selected');
 			});
 			$map.click(function(e){
-				e.stopPropogation();
 				$(this).children().removeClass('selected');
 			});
+			$map.on('contextmenu', function(e){
+				$.get('/api/changeDirection', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
+				return false;
+			})
 		});
 	}
 

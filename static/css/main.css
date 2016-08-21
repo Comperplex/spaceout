@@ -20,8 +20,27 @@ body {
   /* line 24, ../../private/scss/main.scss */
   #gameArea > * {
     position: absolute; }
+    /* line 27, ../../private/scss/main.scss */
+    #gameArea > *::after {
+      content: attr(data-owner);
+      visibility: hidden;
+      width: 120px;
+      background: #666;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      bottom: 140%;
+      left: 50%;
+      margin-left: -60px; }
+    /* line 45, ../../private/scss/main.scss */
+    #gameArea > *:hover::after {
+      visibility: visible; }
 
-/* line 29, ../../private/scss/main.scss */
+/* line 51, ../../private/scss/main.scss */
 #controlPanel {
   position: absolute;
   top: 0px;

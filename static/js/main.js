@@ -1,5 +1,8 @@
 $(document).ready(function(){
+	document.oncontextmenu = function() {return false;};
+
 	var $map = $('#gameArea');
+
 	$('*').contextmenu( function() {
     	return false;
 	});
@@ -94,12 +97,18 @@ $(document).ready(function(){
 				$(this).addClass('selected').siblings().removeClass('selected');
 			});
 			$map.click(function(e){
-				$(this).children().removeClass('selected');
+
 			});
-			$map.on('contextmenu', function(e){
-				$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
-				return false;
-			})
+			$map.mousedown(function(e){
+				if (e.button == 2){
+					$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
+					return false;
+				} else if (e.button == 1){
+					$(this).children().removeClass('selected');
+					return false;
+				}
+				return true;
+			});
 		});
 	}
 

@@ -20,7 +20,7 @@ def withinArea(point, shape, **kwargs): #Will be useful for collision
 	elif(shape == 'circle'):
 		pass
 
-def newVelocity(gameObject, goTo, speed=20):
+def newVelocity(gameObject, goTo, speed=50):
 	a, b = gameObject.loc, goTo
 	disp = [b[0]-a[0], b[1]-a[1]]
 	distance = linDist(a,b)

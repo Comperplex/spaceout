@@ -33,6 +33,9 @@ def linDist(p1, p2):
 def vectMag(v):
 	return math.sqrt(sum(x**2 for x in v))
 
+def getAngle(v):
+	return (math.atan2(v[1], v[0]) * (180 / math.pi)) + 90
+
 class MovementRule:
 
 	def __init__(self):

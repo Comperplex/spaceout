@@ -8,9 +8,9 @@ $(document).ready(function(){
 		return input + (Math.random() * (margin * 2)) - margin;
 	}
 
-	function getAngle(v){ // get angle given an x,y vector
-		return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
-	}
+	//function getAngle(v){ // get angle given an x,y vector
+		//return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
+	//}
 
 	function addDrone(obj){
 		$drone = $("<span id=\""+obj.ID+"\" class=\"drone\" data-owner=\""+obj.ID.split("-")[0]+"\"><svg width=\"20px\" height=\"20px\" viewBox=\"0 0 10 10\">\n<polygon fill=\"#33f\" stroke=\"#00c\" stroke-width=\"1\" stroke-linejoin=\"round\" points=\"5,0.5 0.5,9.5 5,8 9.5,9.5 5,0.5\"></polygon>\n</svg></span>");
@@ -23,7 +23,8 @@ $(document).ready(function(){
 		}, 1000, 'easeInSine').children('svg').css({
 			/* marginTop: (0 - ($(this).height()/2))+'px',
 			marginLeft: (0 - ($(this).width()/2))+'px', */
-			transform: 'rotate('+getAngle(obj.velocity)+'deg)'
+			//transform: 'rotate('+getAngle(obj.velocity)+'deg)'
+			transform: 'rotate('+obj.angle+'deg)'
 		});
 		return $drone;
 	}
@@ -70,7 +71,8 @@ $(document).ready(function(){
 						left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
 						top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 					}, 1000, 'linear').children('svg').css({
-						transform: 'rotate('+getAngle(obj.velocity)+'deg)'
+						//transform: 'rotate('+getAngle(obj.velocity)+'deg)'
+						transform: 'rotate('+obj.angle+'deg)'
 					});
 				} else {
 					switch (obj.objectType){

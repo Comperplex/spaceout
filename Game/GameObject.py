@@ -1,5 +1,6 @@
 import math
 from Command import Command
+import Movement
 
 class GameObject():
 
@@ -21,6 +22,7 @@ class GameObject():
 		self.velocity = [0, 0] #Velocity vector. For example: [1, 0] refers to positive x direction at 1 unit per second
 		self.acceleration = [0, 0]
 		self.current_cmd = Command('drift') #Initialize GameObjec to drift based on initial acceleration and velocity when created
+		self.angle = 0
 		#Variable convention:
 		#Player: a string representing the player name the object belongs to. Same for every object the player owns
 		#ID: A unique ID that is dynamically assigned for each gameObject on the map. In the form player,objectType,number

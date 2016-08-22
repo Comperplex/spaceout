@@ -15,11 +15,11 @@ $(document).ready(function(){
 	function addDrone(obj){
 		$drone = $("<span id=\""+obj.ID+"\" class=\"drone\" data-owner=\""+obj.ID.split("-")[0]+"\"><svg width=\"20px\" height=\"20px\" viewBox=\"0 0 10 10\">\n<polygon fill=\"#33f\" stroke=\"#00c\" stroke-width=\"1\" stroke-linejoin=\"round\" points=\"5,0.5 0.5,9.5 5,8 9.5,9.5 5,0.5\"></polygon>\n</svg></span>");
 		$drone.css({
-			left: obj.loc[0]+'px',
-			top: obj.loc[1]+'px'
+			left: (obj.loc[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] - $drone.height()/2)+'px'
 		}).animate({
-			left: (obj.loc[0] + obj.velocity[0])+'px',
-			top: (obj.loc[1] + obj.velocity[1])+'px'
+			left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine').children('svg').css({
 			/* marginTop: (0 - ($(this).height()/2))+'px',
 			marginLeft: (0 - ($(this).width()/2))+'px', */
@@ -31,11 +31,11 @@ $(document).ready(function(){
 	function addBeacon(obj){
 		var $beacon = $("<span id=\""+obj.ID+"\" class=\"beacon\" data-owner=\""+obj.ID.split("-")[0]+"\"><svg width=\"400px\" height=\"400px\" viewBox=\"0 0 10 10\">\n<circle cx=\"5\" cy=\"5\" r=\"4.75\" stroke=\"#667\" stroke-width=\"0.5\" fill=\"#99a\" stroke-linejoin=\"round\" />\n</svg></span>");
 		$beacon.css({
-			left: obj.loc[0]+'px',
-			top: obj.loc[1]+'px'
+			left: (obj.loc[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] - $drone.height()/2)+'px'
 		}).animate({
-			left: (obj.loc[0] + obj.velocity[0])+'px',
-			top: (obj.loc[1] + obj.velocity[1])+'px'
+			left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine');
 		return $beacon;
 	}
@@ -44,11 +44,11 @@ $(document).ready(function(){
 		var points = pm(10)+","+pm(1)+" "+pm(16)+","+pm(4)+" "+pm(19)+","+pm(10)+" "+pm(16)+","+pm(16)+" "+pm(10)+","+pm(19)+" "+pm(4)+","+pm(16)+" "+pm(1)+","+pm(10)+" "+pm(4)+","+pm(4);
 		var $asteroid = $("<span id=\""+obj.ID+"\" class=\"asteroid\"><svg width=\"10px\" height=\"10px\" viewBox=\"0 0 20 20\">\n<polygon fill=\"#f33\" stroke=\"#c00\" stroke-width=\"4\" stroke-linejoin=\"round\" points=\""+points+"\"></polygon>\n</svg>");
 		$asteroid.css({
-			left: obj.loc[0]+'px',
-			top: obj.loc[1]+'px'
+			left: (obj.loc[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] - $drone.height()/2)+'px'
 		}).animate({
-			left: (obj.loc[0] + obj.velocity[0])+'px',
-			top: (obj.loc[1] + obj.velocity[1])+'px'
+			left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
+			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine');
 		return $asteroid;
 	}
@@ -64,11 +64,11 @@ $(document).ready(function(){
 			gameMap.objects.forEach(function(obj){
 				if ($('#'+obj.ID).length){
 					$('#'+obj.ID).css({
-						left: obj.loc[0]+'px',
-						top: obj.loc[1]+'px'
+						left: (obj.loc[0] - $drone.width()/2)+'px',
+						top: (obj.loc[1] - $drone.height()/2)+'px'
 					}).animate({
-						left: (obj.loc[0] + obj.velocity[0])+'px',
-						top: (obj.loc[1] + obj.velocity[1])+'px'
+						left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
+						top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 					}, 1000, 'linear').children('svg').css({
 						transform: 'rotate('+getAngle(obj.velocity)+'deg)'
 					});

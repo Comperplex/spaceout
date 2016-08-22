@@ -26,27 +26,27 @@ body {
   height: 100%;
   border: 1px solid rgba(128, 128, 128, 0.5); }
   /* line 30, ../../private/scss/main.scss */
-  #gameArea > * {
+  #gameArea > span {
     position: absolute; }
-  /* line 34, ../../private/scss/main.scss */
-  #gameArea ::after {
-    content: attr(data-owner);
-    visibility: hidden;
-    width: 120px;
-    background: #666;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    bottom: 140%;
-    left: 50%;
-    margin-left: -60px; }
-  /* line 52, ../../private/scss/main.scss */
-  #gameArea :hover::after, #gameArea .selected::after {
-    visibility: visible; }
+    /* line 33, ../../private/scss/main.scss */
+    #gameArea > span::after {
+      content: attr(data-owner);
+      visibility: hidden;
+      width: 120px;
+      background: #666;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      bottom: 140%;
+      left: 50%;
+      margin-left: -60px; }
+    /* line 51, ../../private/scss/main.scss */
+    #gameArea > span:hover::after, #gameArea > span.selected::after {
+      visibility: visible; }
 
 /* line 57, ../../private/scss/main.scss */
 #controlPanel {

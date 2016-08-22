@@ -28,13 +28,6 @@ class GameObject():
 	def update(self): #Each game object must be updated every tick
 		self.current_cmd.runCmd(self)
 
-	def newVelocity(self, goTo):
-		a, b, v = self.loc, goTo, self.velocity
-		disp = [b[0]-a[0], b[1]-a[1]]
-		distance = math.sqrt( disp[0]**2 + disp[1]**2 )
-		speed = math.sqrt( v[0]**2 + v[1]**2 )
-		self.velocity = [disp[0]*(speed/distance), disp[1]*(speed/distance)]
-
 	def getDict(self):
 		obj_dict = self.__dict__.copy()
 		del obj_dict['current_cmd']

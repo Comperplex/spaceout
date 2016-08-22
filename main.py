@@ -9,6 +9,7 @@ sys.path.append(gameDir)
 
 from Game.GameMap import GameMap
 from Game.GameObject import GameObject
+from Game.Command import Command
 from Game import MainGameLoop
 from Game import config
 
@@ -42,7 +43,7 @@ class Main(object):
 				'objects': []
 			}
 			for i in MainGameLoop.gameMap.gameObjects:
-				jsonGameMap['objects'].append(i.__dict__)
+				jsonGameMap['objects'].append(i.getDict())
 			return json.dumps(jsonGameMap)
 		elif args[0] == 'addObj':
 			if set(['loc','type','player']).issubset(kwargs):
@@ -50,14 +51,18 @@ class Main(object):
 				myObject = GameObject(loc, kwargs['type'], kwargs['player'])
 				myObject.velocity = [1,1]
 				MainGameLoop.gameMap.addObject(myObject)
-				return json.dumps(myObject.__dict__)
+				return json.dumps(myObject.getDict())
 		elif args[0] == 'writeMsg':
 			if 'msg' in kwargs:
 				print(kwargs['msg'])
 		elif args[0] == 'changeDirection':
 			if set(['loc','ID']).issubset(kwargs):
 				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
-				MainGameLoop.gameMap.getObject(kwargs['ID']).newVelocity(loc);
+				MainGameLoop.gameMap.getObject(kwargs['ID']).newVelocity(loc)
+		elif args[0] == 'gotoPoint':
+			if set(['loc','ID']).issubset(kwargs):
+				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
+				MainGameLoop.gameMap.getObject(kwargs['ID']).current_cmd = Command('gotoPoint', dest_pt=loc)
 		else:
 			return error(message="API method does not exist")
 

@@ -32,6 +32,7 @@ class TestGameMap(unittest.TestCase):
 		gameMap.addObject(GameObject([0,0], 'drone', 'owen'))
 		self.assertTrue(gameMap.removeObject('owen-drone-0'))
 		self.assertEqual(len(gameMap.gameObjects), 0) #Testing the length of the unsorted gameObjects list
+		self.assertListEqual(gameMap.playerSortedObjectDict['owen'], [])
 
 	def testID(self):
 		gameMap = GameMap(100)

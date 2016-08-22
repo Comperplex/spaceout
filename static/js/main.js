@@ -95,7 +95,7 @@ $(document).ready(function(){
 				$(this).children().removeClass('selected');
 			});
 			$map.on('contextmenu', function(e){
-				$.get('/api/changeDirection', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
+				$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
 				return false;
 			})
 		});

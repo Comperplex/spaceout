@@ -103,4 +103,3 @@ class Asteroid(GameObject):
 
 if __name__ == '__main__': #for testing purposes
 	gameObject = GameObject([0,0], 'drone', 'owen')
-	print(gameObject.getDict())

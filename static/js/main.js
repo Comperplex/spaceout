@@ -15,6 +15,8 @@ $(document).ready(function(){
 		//return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
 	//}
 
+
+
 	function addDrone(obj){
 		$drone = $("<span id=\""+obj.ID+"\" class=\"drone\" data-owner=\""+obj.ID.split("-")[0]+"\"><svg width=\"20px\" height=\"20px\" viewBox=\"0 0 10 10\">\n<polygon fill=\"#33f\" stroke=\"#00c\" stroke-width=\"1\" stroke-linejoin=\"round\" points=\"5,0.5 0.5,9.5 5,8 9.5,9.5 5,0.5\"></polygon>\n</svg></span>");
 		$drone.css({
@@ -29,6 +31,10 @@ $(document).ready(function(){
 			//transform: 'rotate('+getAngle(obj.velocity)+'deg)'
 			transform: 'rotate('+obj.angle+'deg)'
 		});
+		$drone.click(function(e){
+			e.stopPropagation();
+			$(this).addClass('selected').siblings().removeClass('selected');
+		});
 		return $drone;
 	}
 
@@ -41,6 +47,10 @@ $(document).ready(function(){
 			left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
 			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine');
+		$beacon.click(function(e){
+			e.stopPropagation();
+			$(this).addClass('selected').siblings().removeClass('selected');
+		});
 		return $beacon;
 	}
 
@@ -86,31 +96,23 @@ $(document).ready(function(){
 							$map.append(addBeacon(obj));
 							break;
 						case 'asteroid':
-							$map.append(addAsteroid([50,50], 'asteroid 1'))
+							$map.append(addAsteroid(obj));
 							break;
 					}
 				}
 			});
-		}).then(function(){
-			$('.drone, .beacon').click(function(e){
-				e.stopPropagation();
-				$(this).addClass('selected').siblings().removeClass('selected');
-			});
-			$map.click(function(e){
-
-			});
-			$map.mousedown(function(e){
-				if (e.button == 2){
-					$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
-					return false;
-				} else if (e.button == 1){
-					$(this).children().removeClass('selected');
-					return false;
-				}
-				return true;
-			});
 		});
 	}
+	$map.mousedown(function(e){
+		if (e.button == 2){
+			$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
+			return false;
+		} else if (e.button == 1){
+			$(this).children().removeClass('selected');
+			return false;
+		}
+		return true;
+	});
 
 	function runGame(tickFreq=1){ // how many seconds between loops
 		var tickCount = 0;

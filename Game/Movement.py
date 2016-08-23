@@ -1,6 +1,8 @@
 import math
 
-def vectorMovementWithoutCollision(gameMap, gameObject): #Returns True if successful and false otherwise
+gameMap = None
+
+def vectMove(gameObject): #Returns True if successful and false otherwise
 	new_loc = [0,0]
 	new_loc[0] = gameObject.loc[0] + gameObject.velocity[0]
 	new_loc[1] = gameObject.loc[1] + gameObject.velocity[1]
@@ -10,7 +12,7 @@ def vectorMovementWithoutCollision(gameMap, gameObject): #Returns True if succes
 	else:
 		return False
 
-def vectorMovementWithCollision(gameMap, gameObject):
+def vectorMovementWithCollision(gameObject):
 	obstacles = gameMap.gameObjects
 
 def withinArea(point, shape, **kwargs): #Will be useful for collision
@@ -35,8 +37,3 @@ def vectMag(v):
 
 def getAngle(v):
 	return (math.atan2(v[1], v[0]) * (180 / math.pi)) + 90
-
-class MovementRule:
-
-	def __init__(self):
-		pass

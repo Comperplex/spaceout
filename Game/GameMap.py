@@ -66,8 +66,6 @@ class GameMap:
 			gameObject.loc[1] += yIncrement
 
 	def update(self):
+		Movement.gameMap = self
 		for gameObject in self.gameObjects:
-			#TEST CODE REMOVE LATER
-			Movement.vectorMovementWithoutCollision(self, gameObject)
-			#TEST CODE REMOVE LATER
 			gameObject.update()

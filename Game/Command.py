@@ -12,9 +12,11 @@ class Command():
 		if self.cmd_type == 'drift': #Drift: Moves based on existing acceleration and velocity with NO angle change
 			v, a = gameObject.velocity, gameObject.acceleration
 			gameObject.velocity = [v[0] + a[0], v[1] + a[1]]
+			Movement.vectMove(gameObject)
 
 		elif self.cmd_type == 'gotoPoint':
 			if 'approach_cnt' not in self.params:
+				#print('command started')
 				Movement.newVelocity(gameObject, self.dest_pt) #Assigning default direction and velocity
 				gameObject.angle = Movement.getAngle(gameObject.velocity)
 				self.params['approach_cnt'] = 0
@@ -27,10 +29,12 @@ class Command():
 				else:
 					gameObject.velocity = [0,0]
 					self.endCmd()
+			Movement.vectMove(gameObject)
 
 	def endCmd(self):
 		self.cmd_type = 'drift'
-		self.params = {}
+		#print('command ended')
+		self.params.clear()
 
 if __name__ == '__main__':
 	command = Command('gotoPoint', dest_pt=[0,0])

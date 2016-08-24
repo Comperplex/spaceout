@@ -28,7 +28,15 @@ def error(code=200, message=''):
 class Main(object):
 	@cherrypy.expose
 	def index(self, *args, **kwargs):
-		return env.get_template('index.html').render()
+		if 'userid' not in cherrypy.session or cherrypy.session['userid'] == '':
+			tempID = 0
+			while hex(tempID)[2:] in MainGameLoop.gameMap.playerSortedObjectDict:
+				tempID += 1
+			cherrypy.session['userid'] = hex(tempID)[2:]
+			isNewUser = True
+		else:
+			isNewUser = False
+		return env.get_template('index.html').render({'isNewUser':isNewUser, 'session':cherrypy.session})
 
 	@cherrypy.expose
 	def api(self, *args, **kwargs):
@@ -47,9 +55,9 @@ class Main(object):
 				jsonGameMap['objects'].append(i.getDict())
 			return json.dumps(jsonGameMap)
 		elif args[0] == 'addObj':
-			if set(['loc','type','player']).issubset(kwargs):
+			if set(['loc','type']).issubset(kwargs):
 				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
-				myObject = GameObject(loc, kwargs['type'], kwargs['player'])
+				myObject = GameObject(loc, kwargs['type'], cherrypy.session['userid'])
 				myObject.velocity = [1,1]
 				MainGameLoop.gameMap.addObject(myObject)
 				return json.dumps(myObject.getDict())
@@ -62,8 +70,9 @@ class Main(object):
 				Movement.newVelocity(MainGameLoop.gameMap.getObject(kwargs['ID']), loc)
 		elif args[0] == 'gotoPoint':
 			if set(['loc','ID']).issubset(kwargs):
-				loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
-				MainGameLoop.gameMap.getObject(kwargs['ID']).current_cmd = Command('gotoPoint', dest_pt=loc)
+				if kwargs['ID'].split('-')[0] == cherrypy.session['userid']:
+					loc = [int(kwargs['loc'].split(',')[0]), int(kwargs['loc'].split(',')[1])]
+					MainGameLoop.gameMap.getObject(kwargs['ID']).current_cmd = Command('gotoPoint', dest_pt=loc)
 		else:
 			return error(message="API method does not exist")
 
@@ -78,6 +87,9 @@ if __name__ == '__main__':
 
 	conf = {
 		'/': {
+			'tools.sessions.on': True,
+			'tools.sessions.storage_type': "file",
+			'tools.sessions.storage_path': os.path.join(os.getcwd(), "sessions"),
 			'tools.staticdir.root': os.path.abspath(os.getcwd())
 		},
 		'/static': {

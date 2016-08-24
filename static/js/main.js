@@ -11,9 +11,9 @@ $(document).ready(function(){
 		return input + (Math.random() * (margin * 2)) - margin;
 	}
 
-	//function getAngle(v){ // get angle given an x,y vector
-		//return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
-	//}
+	/* function getAngle(v){ // get angle given an x,y vector
+		return (Math.atan2(v[1], v[0]) * (180 / Math.PI)) + 90;
+	} */
 
 
 
@@ -26,14 +26,14 @@ $(document).ready(function(){
 			left: (obj.loc[0] + obj.velocity[0] - $drone.width()/2)+'px',
 			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine').children('svg').css({
-			/* marginTop: (0 - ($(this).height()/2))+'px',
-			marginLeft: (0 - ($(this).width()/2))+'px', */
 			//transform: 'rotate('+getAngle(obj.velocity)+'deg)'
 			transform: 'rotate('+obj.angle+'deg)'
 		});
 		$drone.click(function(e){
-			e.stopPropagation();
-			$(this).addClass('selected').siblings().removeClass('selected');
+			if ($(this).attr('data-owner') == Game.userid){
+				e.stopPropagation();
+				$(this).addClass('selected').siblings().removeClass('selected');
+			}
 		});
 		return $drone;
 	}
@@ -48,8 +48,10 @@ $(document).ready(function(){
 			top: (obj.loc[1] + obj.velocity[1] - $drone.height()/2)+'px'
 		}, 1000, 'easeInSine');
 		$beacon.click(function(e){
-			e.stopPropagation();
-			$(this).addClass('selected').siblings().removeClass('selected');
+			if ($(this).attr('data-owner') == Game.userid){
+				e.stopPropagation();
+				$(this).addClass('selected').siblings().removeClass('selected');
+			}
 		});
 		return $beacon;
 	}
@@ -104,14 +106,16 @@ $(document).ready(function(){
 		});
 	}
 	$map.mousedown(function(e){
-		if (e.button == 2){
-			$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
-			return false;
-		} else if (e.button == 1){
-			$(this).children().removeClass('selected');
-			return false;
+		switch (event.which) {
+			case 1:
+				$map.children().removeClass('selected');
+				break;
+			case 3:
+				if ($map.children('.selected').attr('data-owner') == Game.userid){
+					$.get('/api/gotoPoint', {'loc':e.pageX+','+e.pageY, 'ID':$map.children('.selected').attr('id')});
+				}
+				break;
 		}
-		return true;
 	});
 
 	function runGame(tickFreq=1){ // how many seconds between loops

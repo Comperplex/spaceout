@@ -30,7 +30,7 @@ body {
     position: absolute; }
     /* line 33, ../../private/scss/main.scss */
     #gameArea > span::after {
-      content: attr(data-owner);
+      content: "player " attr(data-owner);
       visibility: hidden;
       width: 120px;
       background: #666;

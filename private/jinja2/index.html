@@ -24,9 +24,16 @@
 	</div>
 
 	<div id="controlPanel">
-		<button onclick="$.get('/api/addObj', {'loc':'50,50', 'type':'drone', 'player':'charter'});">Add Drone</button>
+		<button onclick="$.get('/api/addObj', {'loc':'50,50', 'type':'drone'});">Add Drone</button>
 		<button onclick="drawMap();">Redraw Map</button>
 	</div>
 
+	<script>
+$(document).ready(function(){
+	window.Game = {
+		userid: {{ session.userid }}
+	}
+});
+	</script>
 </body>
 </html>

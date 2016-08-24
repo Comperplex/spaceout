@@ -31,7 +31,7 @@ body {
 		position: absolute;
 
 		&::after {
-			content: attr(data-owner);
+			content: "player " attr(data-owner);
 			visibility: hidden;
 			width: 120px;
 			background: #666;
